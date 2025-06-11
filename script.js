@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const blockIdInput = document.getElementById('block_id');
     const colorInput = document.getElementById('colour_id');
     const changeButton = document.getElementById('change_button');
-    const resetButton = document.getElementById('reset');
+    const resetButton = document.getElementById('reset_button');
 
     gridItems.forEach((item, index) => {
         item.id = (index + 1).toString();

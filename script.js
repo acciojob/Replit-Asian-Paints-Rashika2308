@@ -1,28 +1,47 @@
-const changeButton = document.getElementById("change_button");
-const resetButton = document.getElementById("Reset");
+document.addEventListener('DOMContentLoaded', function() {
+    const gridItems = document.querySelectorAll('.grid-item');
+    const blockIdInput = document.getElementById('block_id');
+    const colorInput = document.getElementById('colour_id');
+    const changeButton = document.getElementById('change_button');
+    const resetButton = document.getElementById('reset');
 
-changeButton.addEventListener("click", () => {
-  const blockId = document.getElementById("block_id").value;
-  const color = document.getElementById("colour_id").value;
+    gridItems.forEach((item, index) => {
+        item.id = (index + 1).toString();
+    });
 
-  // Reset all blocks to transparent
-  for (let i = 1; i <= 9; i++) {
-    document.getElementById(i.toString()).style.backgroundColor = "transparent";
-  }
+    changeButton.addEventListener('click', function() {
+        const blockId = blockIdInput.value;
+        const color = colorInput.value.trim();
 
-  // Change specific block's color
-  const block = document.getElementById(blockId);
-  if (block) {
-    block.style.backgroundColor = color;
-  } else {
-    alert("Invalid Block ID! Please enter a number from 1 to 9.");
-  }
+        if (!blockId || !color) {
+            alert('Please enter both Block ID and Color');
+            return;
+        }
+
+        const blockNumber = parseInt(blockId);
+        if (isNaN(blockNumber) || blockNumber < 1 || blockNumber > 9) {
+            alert('Please enter a valid Block ID between 1 and 9');
+            return;
+        }
+
+        gridItems.forEach(item => {
+            item.style.backgroundColor = 'transparent';
+        });
+
+        const targetBlock = document.getElementById(blockId);
+        if (targetBlock) {
+            targetBlock.style.backgroundColor = color;
+        } else {
+            alert('Block not found!');
+        }
+    });
+
+    resetButton.addEventListener('click', function() {
+        gridItems.forEach(item => {
+            item.style.backgroundColor = 'transparent';
+        });
+
+        blockIdInput.value = '';
+        colorInput.value = '';
+    });
 });
-
-resetButton.addEventListener("click", () => {
-  // Reset all blocks to transparent
-  for (let i = 1; i <= 9; i++) {
-    document.getElementById(i.toString()).style.backgroundColor = "transparent";
-  }
-});
-
